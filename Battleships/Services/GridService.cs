@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.IO.Compression;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using Battleships.Enums;
 using Battleships.Interfaces;
+using Battleships.Models;
 
-namespace Battleships.Models
+namespace Battleships.Services
 {
     public class GridService : IGridService
     {
@@ -39,6 +38,11 @@ namespace Battleships.Models
             };
 
             return neighbourCells.Where(x => x.CellStatus != CellStatus.Empty).Any();
+        }
+
+        public void PlaceShipOnGrid()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

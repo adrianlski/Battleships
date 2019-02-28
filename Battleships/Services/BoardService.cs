@@ -5,7 +5,7 @@ using Battleships.Interfaces;
 using Battleships.Models;
 using Battleships.Ships;
 
-namespace Battleships
+namespace Battleships.Services
 {
     public class BoardService : IBoardService
     {
@@ -20,9 +20,10 @@ namespace Battleships
             _random = new Random();
         }
 
-        public void PlaceShips()
+        public void InitializeBoard()
         {
             _gridService.InitializeGrid();
+
             foreach (var ship in _ships)
             {
                 PlaceShip(ship);
@@ -86,10 +87,6 @@ namespace Battleships
         {
             throw new NotImplementedException();
         }
-
-        
-
-        
 
         private List<Ship> GetShips()
         {

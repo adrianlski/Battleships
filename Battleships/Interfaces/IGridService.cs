@@ -2,9 +2,10 @@
 
 namespace Battleships.Interfaces
 {
-    public interface ICellGrid
+    public interface IGridService
     {
         void InitializeGrid();
         bool AreCellNeighboursEmpty(int column, int row);
+        void PlaceShipOnGrid();
     }
 }

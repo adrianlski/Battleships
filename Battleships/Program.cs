@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Battleships.Services;
 
 namespace Battleships
 {
@@ -6,7 +6,7 @@ namespace Battleships
     {
         static void Main(string[] args)
         {
-           var game = new Game(new Board(new CellGrid()), new CellValidator());
+           var game = new Game(new BoardService(new GridService()), new CellValidator());
 
             game.Start();
         }

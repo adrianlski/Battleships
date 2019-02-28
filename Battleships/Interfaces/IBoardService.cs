@@ -3,9 +3,9 @@ using Battleships.Models;
 
 namespace Battleships.Interfaces
 {
-    public interface IBoard
+    public interface IBoardService
     {
-        void PlaceShips();
+        void InitializeBoard();
         CellStatus CheckCell();
         void ChangeCellStatus();
         object TakeAShot(Coordinate coordinates);

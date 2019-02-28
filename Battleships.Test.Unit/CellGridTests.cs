@@ -1,19 +1,19 @@
-﻿using System;
-using Battleships.Enums;
+﻿using Battleships.Enums;
+using Battleships.Interfaces;
+using Battleships.Services;
 using NUnit.Framework;
-using NUnit.Framework.Interfaces;
 
 namespace Battleships.Test.Unit
 {
     [TestFixture]
     public class CellGridTests
     {
-        private CellGrid _sut;
+        private GridService _sut;
 
         [SetUp]
         public void SetUp()
         {
-            _sut = new CellGrid();
+            _sut = new GridService();
         }
 
         [Test]

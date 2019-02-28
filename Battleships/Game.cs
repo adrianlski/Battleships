@@ -6,10 +6,10 @@ namespace Battleships
 {
     public class Game : IGame
     {
-        private IBoard _board;
+        private IBoardService _board;
         private ICellValidator _cellValidator;
 
-        public Game(IBoard board, ICellValidator cellValidator)
+        public Game(IBoardService board, ICellValidator cellValidator)
         {
             _board = board;
             _cellValidator = cellValidator;
@@ -17,7 +17,7 @@ namespace Battleships
 
         public void Start()
         {
-            _board.PlaceShips();
+            _board.InitializeBoard();
 
             while (true)
             {
