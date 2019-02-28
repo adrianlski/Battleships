@@ -23,8 +23,7 @@ namespace Battleships.Test.Unit
             Assert.AreEqual(_sut.Cells.Count, 100);
             foreach (var cell in _sut.Cells)
             {
-                Assert.AreEqual(cell.CellStatus, CellStatus.Empty);
-                Assert.AreEqual(cell.ShipType, ShipType.None);
+                Assert.AreEqual(cell.Ship, ShipType.Empty);
             }
         }
     }

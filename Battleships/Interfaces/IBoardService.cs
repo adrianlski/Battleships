@@ -6,7 +6,7 @@ namespace Battleships.Interfaces
     public interface IBoardService
     {
         void InitializeBoard();
-        CellStatus CheckCell();
+        ShipStatus CheckCell();
         void ChangeCellStatus();
         object TakeAShot(Coordinate coordinates);
         bool AllShipsSunk();

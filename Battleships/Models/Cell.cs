@@ -1,11 +1,10 @@
-﻿using Battleships.Enums;
+﻿using Battleships.Ships;
 
 namespace Battleships.Models
 {
     public class Cell
     {
         public Coordinate Coordinate { get; set; }
-        public CellStatus CellStatus { get; set; }
-        public ShipType ShipType { get; set; }
+        public Ship Ship { get; set; }
     }
 }

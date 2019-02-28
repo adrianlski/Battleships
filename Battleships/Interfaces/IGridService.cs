@@ -1,11 +1,14 @@
 ﻿using Battleships.Models;
+using Battleships.Ships;
+using System.Collections.Generic;
 
 namespace Battleships.Interfaces
 {
     public interface IGridService
     {
         void InitializeGrid();
-        bool AreCellNeighboursEmpty(int column, int row);
-        void PlaceShipOnGrid();
+        List<Cell> GetAllCells();
+        bool CheckIfValidLocationForShip(int column, int row);
+        void PlaceShipOnGrid(Ship ship, int column, int row);
     }
 }

@@ -44,7 +44,7 @@ namespace Battleships.Services
                     break;
                 }
 
-            } while (false);
+            } while (true);
         }
 
         private bool CanPlaceShipOnGrid(Ship ship, int column, int row, int orientation)
@@ -54,7 +54,18 @@ namespace Battleships.Services
                 for (var i = 0; i < ship.Length; i++)
                 {
                     
-                    if (_gridService.AreCellNeighboursEmpty(column + i, row))
+                    if (!_gridService.CheckIfValidLocationForShip(column + i, row))
+                    {
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                for (var i = 0; i < ship.Length; i++)
+                {
+
+                    if (!_gridService.CheckIfValidLocationForShip(column, row + i))
                     {
                         return false;
                     }
@@ -65,10 +76,23 @@ namespace Battleships.Services
 
         private void PlaceShipOnGrid(Ship ship, int column, int row, int orientation)
         {
-            _gridService.PlaceShipOnGrid();
+            if (orientation == 0)
+            {
+                for (var i = 0; i < ship.Length; i++)
+                {
+                    _gridService.PlaceShipOnGrid(ship, column + i, row);
+                }
+            } else
+            {
+                for (var i = 0; i < ship.Length; i++)
+                {
+                    _gridService.PlaceShipOnGrid(ship, column, row + i);
+                }
+            }
+            
         }
 
-        public CellStatus CheckCell()
+        public ShipStatus CheckCell()
         {
             throw new NotImplementedException();
         }
@@ -80,6 +104,7 @@ namespace Battleships.Services
 
         public object TakeAShot(Coordinate coordinates)
         {
+            _gridService.GetAllCells();
             throw new NotImplementedException();
         }
 

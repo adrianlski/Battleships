@@ -35,6 +35,7 @@ namespace Battleships
         private Coordinate GetCoordinates()
         {
             Console.WriteLine("Please enter the cell to attack");
+
             while (true)
             {
                 var input = Console.ReadLine();
