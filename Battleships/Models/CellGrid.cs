@@ -9,12 +9,7 @@ namespace Battleships
     {
         public List<Cell> Cells { get; private set; }
 
-        public CellGrid()
-        {
-            InitializeGrid();
-        }
-
-        private void InitializeGrid()
+        public void InitializeGrid()
         {
             Cells = new List<Cell>();
             for (var i = 0; i < 10; i++)
@@ -29,6 +24,11 @@ namespace Battleships
                     });
                 }
             }
+        }
+
+        public bool AreCellNeighboursEmpty(Cell cell)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

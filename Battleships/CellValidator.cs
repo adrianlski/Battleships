@@ -41,7 +41,7 @@ namespace Battleships
             return COLUMN_LETTERS.IndexOf(c) != -1;
         }
 
-        public Coordinate TransformToCoordinate(string input)
+        public Coordinate ParseInput(string input)
         {
             var column = COLUMN_LETTERS.IndexOf(input[0]);
             var row = input[1] - 1;

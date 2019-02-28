@@ -9,5 +9,6 @@ namespace Battleships.Interfaces
         CellStatus CheckCell();
         void ChangeCellStatus();
         object TakeAShot(Coordinate coordinates);
+        bool AllShipsSunk();
     }
 }

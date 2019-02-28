@@ -17,6 +17,8 @@ namespace Battleships
 
         public void Start()
         {
+            _board.PlaceShips();
+
             while (true)
             {
                 var coordinates = GetCoordinates();
@@ -32,13 +34,13 @@ namespace Battleships
 
         private Coordinate GetCoordinates()
         {
-            Console.WriteLine("Please enter the cell");
+            Console.WriteLine("Please enter the cell to attack");
             while (true)
             {
                 var input = Console.ReadLine();
                 if (_cellValidator.IsInputValid(input))
                 {
-                    return _cellValidator.TransformToCoordinate(input);
+                    return _cellValidator.ParseInput(input);
                 }
 
                 Console.WriteLine("Please enter a valid cell, e.g A1");
@@ -52,12 +54,17 @@ namespace Battleships
 
         private void EndGame()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("All ships sunks! Thanks for playing.");
         }
 
         private bool GameFinished()
         {
-            throw new NotImplementedException();
+            if (_board.AllShipsSunk())
+            {
+                return true;
+            }
+
+            return false;
         }
 
     }

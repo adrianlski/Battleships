@@ -20,11 +20,46 @@ namespace Battleships
 
         public void PlaceShips()
         {
+            _cellGrid.InitializeGrid();
             var random = new Random();
             foreach (var ship in _ships)
             {
                 PlaceShip(ship, random);
             }
+        }
+
+        private void PlaceShip(Ship ship, Random random)
+        {
+            do
+            {
+                var column = random.Next(0, 9);
+                var row = random.Next(0, 9);
+                var orientation = random.Next(0, 1);
+
+                if (CanPlaceShipOnGrid(ship, column, row, orientation))
+                {
+                    PlaceShipOnGrid(ship, column, row, orientation);
+                    break;
+                }
+
+            } while (false);
+        }
+
+        private bool CanPlaceShipOnGrid(Ship ship, int column, int row, int orientation)
+        {
+            if (orientation == 0)
+            {
+                for (var i = 0; i < ship.Length; i++)
+                {
+                    _cellGrid.AreCellNeighboursEmpty(column + i, row);
+                }
+            }
+            return true;
+        }
+
+        private void PlaceShipOnGrid(Ship ship, int column, int row, int orientation)
+        {
+            throw new NotImplementedException();
         }
 
         public CellStatus CheckCell()
@@ -42,32 +77,14 @@ namespace Battleships
             throw new NotImplementedException();
         }
 
-        private void PlaceShip(Ship ship, Random random)
-        {
-            //do
-            //{
-            //    var column = random.Next(0, 9);
-            //    var row = random.Next(0, 9);
-            //    var orientation = random.Next(0, 1);
-
-            //    if (CanPlaceShipOnGrid(ship, column, row, orientation))
-            //    {
-            //        PlaceShipOnGrid(ship, column, row, orientation);
-            //        break;
-            //    }
-
-            //} while (false);
-        }
-
-        private void PlaceShipOnGrid(ShipType ship, int column, int row, int orientation)
+        public bool AllShipsSunk()
         {
             throw new NotImplementedException();
         }
 
-        private bool CanPlaceShipOnGrid(ShipType ship, int column, int row, int orientation)
-        {
-            return true;
-        }
+        
+
+        
 
         private List<Ship> GetShips()
         {
