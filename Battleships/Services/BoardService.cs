@@ -7,34 +7,35 @@ using Battleships.Ships;
 
 namespace Battleships
 {
-    public class Board : IBoard
+    public class BoardService : IBoardService
     {
-        private ICellGrid _cellGrid;
+        private IGridService _gridService;
         private readonly List<Ship> _ships;
+        private readonly Random _random;
 
-        public Board(ICellGrid cellGrid)
+        public BoardService(IGridService gridService)
         {
-            _cellGrid = cellGrid;
+            _gridService = gridService;
             _ships = GetShips();
+            _random = new Random();
         }
 
         public void PlaceShips()
         {
-            _cellGrid.InitializeGrid();
-            var random = new Random();
+            _gridService.InitializeGrid();
             foreach (var ship in _ships)
             {
-                PlaceShip(ship, random);
+                PlaceShip(ship);
             }
         }
 
-        private void PlaceShip(Ship ship, Random random)
+        private void PlaceShip(Ship ship)
         {
             do
             {
-                var column = random.Next(0, 9);
-                var row = random.Next(0, 9);
-                var orientation = random.Next(0, 1);
+                var column = _random.Next(0, 9);
+                var row = _random.Next(0, 9);
+                var orientation = _random.Next(0, 1);
 
                 if (CanPlaceShipOnGrid(ship, column, row, orientation))
                 {
@@ -51,7 +52,11 @@ namespace Battleships
             {
                 for (var i = 0; i < ship.Length; i++)
                 {
-                    _cellGrid.AreCellNeighboursEmpty(column + i, row);
+                    
+                    if (_gridService.AreCellNeighboursEmpty(column + i, row))
+                    {
+                        return false;
+                    }
                 }
             }
             return true;
@@ -59,7 +64,7 @@ namespace Battleships
 
         private void PlaceShipOnGrid(Ship ship, int column, int row, int orientation)
         {
-            throw new NotImplementedException();
+            _gridService.PlaceShipOnGrid();
         }
 
         public CellStatus CheckCell()
