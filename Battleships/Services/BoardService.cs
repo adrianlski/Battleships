@@ -36,7 +36,7 @@ namespace Battleships.Services
             {
                 var column = _random.Next(0, 9);
                 var row = _random.Next(0, 9);
-                var orientation = _random.Next(0, 1);
+                var orientation = _random.Next(0, 2);
 
                 if (CanPlaceShipOnGrid(ship, column, row, orientation))
                 {

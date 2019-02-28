@@ -63,7 +63,7 @@ namespace Battleships.Services
 
         private bool IsOutOfBounds(int column, int row)
         {
-            return (column > MAX_COLUMN_NUM || column < 0) || (row > MAX_ROW_NUM || row < 0);
+            return (column >= MAX_COLUMN_NUM || column < 0) || (row >= MAX_ROW_NUM || row < 0);
         }
 
         public void PlaceShipOnGrid(Ship ship, int column, int row)
