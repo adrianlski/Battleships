@@ -5,6 +5,7 @@ namespace Battleships
 {
     public class CellValidator : ICellValidator
     {
+        // Inject to the board class
         private const string COLUMN_LETTERS = "ABCDEFGHIJ";
 
         public bool IsInputValid(string input)

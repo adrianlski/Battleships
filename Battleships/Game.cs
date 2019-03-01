@@ -8,6 +8,7 @@ namespace Battleships
     {
         private IBoardService _board;
         private ICellValidator _cellValidator;
+        //private IGameInterface _gameInterface;
 
         public Game(IBoardService board, ICellValidator cellValidator)
         {
@@ -22,6 +23,7 @@ namespace Battleships
             while (true)
             {
                 var coordinates = GetCoordinates();
+                //if not valid return false^^;
                 var result = _board.TakeAShot(coordinates);
                 OutputResult(result);
 
@@ -34,12 +36,14 @@ namespace Battleships
 
         private Coordinate GetCoordinates()
         {
+            //_gameInterface.AskForInput();
             Console.WriteLine("Please enter the cell to attack");
 
             while (true)
             {
                 var input = Console.ReadLine();
                 if (_cellValidator.IsInputValid(input))
+                    //_gameInterface.ReadInput();
                 {
                     return _cellValidator.ParseInput(input);
                 }

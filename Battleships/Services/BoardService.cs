@@ -49,11 +49,26 @@ namespace Battleships.Services
 
         private bool CanPlaceShipOnGrid(Ship ship, int column, int row, int orientation)
         {
+            //for (int i = 0; i < UPPER; i++)
+            //{
+            //    if ((Orientation) orientation == Orientation.Horizontal)
+            //    {
+            //        var newCoord = new Coordinate();
+            //    }
+            //    else
+            //    {
+            //        var newCoord = new Coordinate();
+            //    }
+
+            //    !_gridService.CheckIfValidLocationForShip(column + i, row)
+            //}
+            
+
+            // put comments to explain
             if (orientation == 0)
             {
                 for (var i = 0; i < ship.Length; i++)
                 {
-                    
                     if (!_gridService.CheckIfValidLocationForShip(column + i, row))
                     {
                         return false;
