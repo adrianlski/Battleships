@@ -24,12 +24,13 @@ namespace Battleships.Services
         {
             PrintColumns();
             PrintRowSeparator();
-            for (int i = 0; i < MAX_ROWS; i++)
+            for (int i = 1; i <= MAX_ROWS; i++)
             {
-                Console.Write($"{i} |");
-                for (int j = 1; j <= MAX_COLUMNS; j++)
+                var rowNumber = i == MAX_ROWS ? $"{i}|" : $"{i} |";
+                Console.Write(rowNumber);
+                for (int j = 0; j < MAX_COLUMNS; j++)
                 {
-                    var cell = board.Where(x => x.Coordinate.Column == j - 1 && x.Coordinate.Row == i).Single();
+                    var cell = board.Where(x => x.Coordinate.Column == j && x.Coordinate.Row == i - 1).Single();
                     char status;
 
                     switch (cell.Ship.ShipType)

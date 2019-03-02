@@ -109,25 +109,33 @@ namespace Battleships.Services
             
         }
 
-        public ShipStatus CheckCell()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ChangeCellStatus()
-        {
-            throw new NotImplementedException();
-        }
-
         public object TakeAShot(Coordinate coordinates)
         {
-            _gridService.GetAllCells();
-            throw new NotImplementedException();
+            var status = _gridService.CheckCellStatus(coordinates.Column, coordinates.Row);
+
+            switch (status)
+            {
+                case ShipStatus.Empty:
+                    break;
+                case ShipStatus.Hit:
+                    break;
+                case ShipStatus.Sunk:
+                    break;
+                default:
+                    break;
+            }
+
+            return null;
         }
 
         public bool AllShipsSunk()
         {
             throw new NotImplementedException();
+        }
+
+        public List<Cell> GetBoard()
+        {
+            return _gridService.GetAllCells();
         }
 
         private List<Ship> GetShips()
@@ -138,11 +146,6 @@ namespace Battleships.Services
                 new Destroyer(),
                 new Destroyer()
             };
-        }
-
-        public List<Cell> GetBoard()
-        {
-            return _gridService.GetAllCells();
         }
     }
 }

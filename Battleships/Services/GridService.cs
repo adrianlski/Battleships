@@ -43,7 +43,7 @@ namespace Battleships.Services
                 return false;
             }
 
-            var potentialCell = Cells.Where(x => x.Coordinate.Column == column + 1 && x.Coordinate.Row == row).Single();
+            var potentialCell = Cells.Where(x => x.Coordinate.Column == column && x.Coordinate.Row == row).Single();
 
             if (potentialCell.Ship.ShipType == ShipType.Empty)
             {
@@ -61,6 +61,11 @@ namespace Battleships.Services
         public void PlaceShipOnGrid(Ship ship, int column, int row)
         {
             Cells.Where(x => x.Coordinate.Column == column && x.Coordinate.Row == row).Single().Ship = ship;
+        }
+
+        public ShipStatus CheckCellStatus(int column, int row)
+        {
+            return Cells.Where(x => x.Coordinate.Column == column && x.Coordinate.Row == row).Single().Ship.ShipStatus;
         }
     }
 }

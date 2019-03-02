@@ -1,4 +1,5 @@
-﻿using Battleships.Models;
+﻿using Battleships.Enums;
+using Battleships.Models;
 using Battleships.Ships;
 using System.Collections.Generic;
 
@@ -10,5 +11,6 @@ namespace Battleships.Interfaces
         List<Cell> GetAllCells();
         bool CheckIfValidLocationForShip(int column, int row);
         void PlaceShipOnGrid(Ship ship, int column, int row);
+        ShipStatus CheckCellStatus(int column, int row);
     }
 }

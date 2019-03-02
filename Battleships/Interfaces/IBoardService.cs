@@ -8,8 +8,6 @@ namespace Battleships.Interfaces
     {
         void InitializeBoard();
         object TakeAShot(Coordinate coordinates);
-        ShipStatus CheckCell();
-        void ChangeCellStatus();
         List<Cell> GetBoard();
         bool AllShipsSunk();
     }
