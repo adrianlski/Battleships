@@ -43,22 +43,14 @@ namespace Battleships.Services
                 return false;
             }
 
-            var neighbourCells = new List<Cell>
-            {
-                Cells.Where(x => x.Coordinate.Column == column + 1 && x.Coordinate.Row == row).FirstOrDefault(),
-                Cells.Where(x => x.Coordinate.Column == column - 1 && x.Coordinate.Row == row).FirstOrDefault(),
-                Cells.Where(x => x.Coordinate.Column == column && x.Coordinate.Row == row + 1).FirstOrDefault(),
-                Cells.Where(x => x.Coordinate.Column == column && x.Coordinate.Row == row - 1).FirstOrDefault(),
-            };
+            var potentialCell = Cells.Where(x => x.Coordinate.Column == column + 1 && x.Coordinate.Row == row).Single();
 
-            var cellsInBound = neighbourCells.Where(x => x != null);
-
-            if (cellsInBound.Where(x => x.Ship.ShipStatus != ShipStatus.Empty).Any())
+            if (potentialCell.Ship.ShipType == ShipType.Empty)
             {
-                return false;
+                return true;
             }
 
-            return true;
+            return false;
         }
 
         private bool IsOutOfBounds(int column, int row)

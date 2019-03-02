@@ -8,24 +8,26 @@ namespace Battleships
     {
         private IBoardService _board;
         private ICellValidator _cellValidator;
-        //private IGameInterface _gameInterface;
+        private IGameInterface _gameInterface;
 
-        public Game(IBoardService board, ICellValidator cellValidator)
+        public Game(IBoardService board, ICellValidator cellValidator, IGameInterface gameInterface)
         {
             _board = board;
             _cellValidator = cellValidator;
+            _gameInterface = gameInterface;
         }
 
         public void Start()
         {
             _board.InitializeBoard();
+            _gameInterface.OutputBoard(_board.GetBoard());
 
             while (true)
             {
                 var coordinates = GetCoordinates();
-                //if not valid return false^^;
                 var result = _board.TakeAShot(coordinates);
-                OutputResult(result);
+                _gameInterface.OutputResult(result);
+                _gameInterface.OutputBoard(_board.GetBoard());
 
                 if (GameFinished())
                 {
@@ -36,30 +38,21 @@ namespace Battleships
 
         private Coordinate GetCoordinates()
         {
-            //_gameInterface.AskForInput();
-            Console.WriteLine("Please enter the cell to attack");
+            var input = _gameInterface.GetUserInput();
 
             while (true)
             {
-                var input = Console.ReadLine();
                 if (_cellValidator.IsInputValid(input))
-                    //_gameInterface.ReadInput();
                 {
                     return _cellValidator.ParseInput(input);
                 }
 
-                Console.WriteLine("Please enter a valid cell, e.g A1");
+                _gameInterface.OutputError("Please enter a valid cell, e.g A1");
             }
         }
-
-        private void OutputResult(object result)
-        {
-            throw new NotImplementedException();
-        }
-
         private void EndGame()
         {
-            Console.WriteLine("All ships sunks! Thanks for playing.");
+            _gameInterface.OutputInfo("All ships sunk! Thanks for playing.");
         }
 
         private bool GameFinished()

@@ -10,12 +10,14 @@ namespace Battleships.Services
     public class BoardService : IBoardService
     {
         private IGridService _gridService;
+        private ICellValidator _cellValidator;
         private readonly List<Ship> _ships;
         private readonly Random _random;
 
-        public BoardService(IGridService gridService)
+        public BoardService(IGridService gridService, ICellValidator cellValidator)
         {
             _gridService = gridService;
+            _cellValidator = cellValidator;
             _ships = GetShips();
             _random = new Random();
         }
@@ -136,6 +138,11 @@ namespace Battleships.Services
                 new Destroyer(),
                 new Destroyer()
             };
+        }
+
+        public List<Cell> GetBoard()
+        {
+            return _gridService.GetAllCells();
         }
     }
 }
