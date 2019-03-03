@@ -4,7 +4,6 @@ using Battleships.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Battleships.Services
 {
@@ -16,7 +15,6 @@ namespace Battleships.Services
 
         public string GetUserInput()
         {
-            Console.WriteLine("Please enter the cell to attack");
             var input = Console.ReadLine();
             return input;
         }
@@ -81,18 +79,21 @@ namespace Battleships.Services
 
         public void OutputError(string message)
         {
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(message);
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         public void OutputEndGame(string message)
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(message);
             Console.ReadLine();
         }
 
-        public void OutputResult(string result)
+        public void OutputInfo(string message)
         {
-            Console.WriteLine(result);
+            Console.WriteLine(message);
         }
     }
 }

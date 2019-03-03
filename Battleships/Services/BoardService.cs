@@ -11,15 +11,13 @@ namespace Battleships.Services
     public class BoardService : IBoardService
     {
         private IGridService _gridService;
-        private ICellValidator _cellValidator;
         private readonly List<Ship> _ships;
         private readonly Random _random;
 
-        public BoardService(IGridService gridService, ICellValidator cellValidator)
+        public BoardService(IGridService gridService, List<Ship> ships)
         {
             _gridService = gridService;
-            _cellValidator = cellValidator;
-            _ships = GetShips();
+            _ships = ships;
             _random = new Random();
         }
 
@@ -82,9 +80,6 @@ namespace Battleships.Services
             }
 
             return $"You hit a {cell.Ship.Name}!";
-            
-            
-
         }
 
         private void IncreaseShipShotCounter(Ship ship)
@@ -162,16 +157,6 @@ namespace Battleships.Services
 
                 _gridService.PlaceShipOnGrid(ship, newCoordinates);
             }
-        }
-
-        private List<Ship> GetShips()
-        {
-            return new List<Ship>
-            {
-                new Battleship(),
-                new Destroyer(),
-                new Destroyer()
-            };
         }
     }
 }

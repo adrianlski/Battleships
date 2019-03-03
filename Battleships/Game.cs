@@ -1,20 +1,20 @@
-﻿using System;
-using Battleships.Interfaces;
+﻿using Battleships.Interfaces;
 using Battleships.Models;
+using System;
 
 namespace Battleships
 {
     public class Game : IGame
     {
         private IBoardService _board;
-        private ICellValidator _cellValidator;
         private IGameInterface _gameInterface;
+        private ICoordinateParser _coordinateParser;
 
-        public Game(IBoardService board, ICellValidator cellValidator, IGameInterface gameInterface)
+        public Game(IBoardService board, IGameInterface gameInterface, ICoordinateParser coordinateParser)
         {
-            _board = board;
-            _cellValidator = cellValidator;
+            _board = board;        
             _gameInterface = gameInterface;
+            _coordinateParser = coordinateParser;
         }
 
         public void Start()
@@ -24,10 +24,13 @@ namespace Battleships
 
             while (true)
             {
+                _gameInterface.OutputInfo("Please enter the cell to attack");
+
                 var coordinates = GetCoordinates();
                 var result = _board.TakeAShot(coordinates);
-                _gameInterface.OutputResult(result);
+
                 _gameInterface.OutputBoard(_board.GetBoard());
+                _gameInterface.OutputInfo(result);
 
                 if (GameFinished())
                 {
@@ -42,12 +45,15 @@ namespace Battleships
             while (true)
             {
                 var input = _gameInterface.GetUserInput();
-                if (_cellValidator.IsInputValid(input))
-                {
-                    return _cellValidator.ParseInput(input);
-                }
 
-                _gameInterface.OutputError("Please enter a valid cell, e.g A1");
+                try
+                {
+                    return _coordinateParser.ParseInput(input);
+                }
+                catch (ArgumentException)
+                {
+                    _gameInterface.OutputError("Please enter a valid cell, e.g A1");
+                }
             }
         }
         private void EndGame()

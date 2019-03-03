@@ -1,5 +1,4 @@
-﻿using Battleships.Enums;
-using Battleships.Models;
+﻿using Battleships.Models;
 using System.Collections.Generic;
 
 namespace Battleships.Interfaces
@@ -7,8 +6,8 @@ namespace Battleships.Interfaces
     public interface IBoardService
     {
         void InitializeBoard();
-        string TakeAShot(Coordinate coordinates);
         List<Cell> GetBoard();
+        string TakeAShot(Coordinate coordinates);
         bool AllShipsSunk();
     }
 }

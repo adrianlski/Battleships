@@ -2,9 +2,8 @@
 
 namespace Battleships.Interfaces
 {
-    public interface ICellValidator
+    public interface ICoordinateParser
     {
-        bool IsInputValid(string input);
         Coordinate ParseInput(string input);
     }
 }
