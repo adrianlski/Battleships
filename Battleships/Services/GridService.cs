@@ -36,14 +36,14 @@ namespace Battleships.Services
             return Cells;
         }
 
-        public bool CheckIfValidLocationForShip(int column, int row)
+        public bool CheckIfValidLocationForShip(Coordinate coordinates)
         {
-            if (IsOutOfBounds(column, row))
+            if (IsOutOfBounds(coordinates))
             {
                 return false;
             }
 
-            var potentialCell = Cells.Where(x => x.Coordinate.Column == column && x.Coordinate.Row == row).Single();
+            var potentialCell = GetCellByCoordinate(coordinates);
 
             if (potentialCell.Ship.ShipType == ShipType.Empty)
             {
@@ -53,19 +53,29 @@ namespace Battleships.Services
             return false;
         }
 
-        private bool IsOutOfBounds(int column, int row)
+        public void PlaceShipOnGrid(Ship ship, Coordinate coordinates)
         {
-            return (column >= MAX_COLUMN_NUM || column < 0) || (row >= MAX_ROW_NUM || row < 0);
+            GetCellByCoordinate(coordinates).Ship = ship;
         }
 
-        public void PlaceShipOnGrid(Ship ship, int column, int row)
+        public ShipStatus CheckCellStatus(Coordinate coordinates)
         {
-            Cells.Where(x => x.Coordinate.Column == column && x.Coordinate.Row == row).Single().Ship = ship;
+            return GetCellByCoordinate(coordinates).Ship.ShipStatus;
         }
 
-        public ShipStatus CheckCellStatus(int column, int row)
+        private bool IsOutOfBounds(Coordinate coordinates)
         {
-            return Cells.Where(x => x.Coordinate.Column == column && x.Coordinate.Row == row).Single().Ship.ShipStatus;
+            return (coordinates.Column >= MAX_COLUMN_NUM 
+                || coordinates.Column < 0)
+                || (coordinates.Row >= MAX_ROW_NUM 
+                || coordinates.Row < 0);
         }
+
+        private Cell GetCellByCoordinate(Coordinate coordinates)
+        {
+            return Cells.Where(x => x.Coordinate.Column == coordinates.Column && x.Coordinate.Row == coordinates.Row).Single();
+        }
+
+        
     }
 }

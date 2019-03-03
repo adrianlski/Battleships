@@ -9,8 +9,8 @@ namespace Battleships.Interfaces
     {
         void InitializeGrid();
         List<Cell> GetAllCells();
-        bool CheckIfValidLocationForShip(int column, int row);
-        void PlaceShipOnGrid(Ship ship, int column, int row);
-        ShipStatus CheckCellStatus(int column, int row);
+        bool CheckIfValidLocationForShip(Coordinate coordinate);
+        void PlaceShipOnGrid(Ship ship, Coordinate coordinate);
+        ShipStatus CheckCellStatus(Coordinate coordinate);
     }
 }

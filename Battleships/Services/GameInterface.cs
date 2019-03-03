@@ -17,7 +17,8 @@ namespace Battleships.Services
         public string GetUserInput()
         {
             Console.WriteLine("Please enter the cell to attack");
-            return Console.ReadLine();
+            var input = Console.ReadLine();
+            return input;
         }
 
         public void OutputBoard(List<Cell> board)

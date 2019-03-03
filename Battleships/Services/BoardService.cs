@@ -36,82 +36,84 @@ namespace Battleships.Services
         {
             do
             {
-                var column = _random.Next(0, 9);
-                var row = _random.Next(0, 9);
+                var coordinates = new Coordinate
+                {
+                    Column = _random.Next(0, 9),
+                    Row = _random.Next(0, 9)
+                };
+               
                 var orientation = _random.Next(0, 2);
 
-                if (CanPlaceShipOnGrid(ship, column, row, orientation))
+                if (CanPlaceShipOnGrid(ship, coordinates, orientation))
                 {
-                    PlaceShipOnGrid(ship, column, row, orientation);
+                    PlaceShipOnGrid(ship, coordinates, orientation);
                     break;
                 }
 
             } while (true);
         }
 
-        private bool CanPlaceShipOnGrid(Ship ship, int column, int row, int orientation)
+        private bool CanPlaceShipOnGrid(Ship ship, Coordinate coordinates, int orientation)
         {
-            //for (int i = 0; i < UPPER; i++)
-            //{
-            //    if ((Orientation) orientation == Orientation.Horizontal)
-            //    {
-            //        var newCoord = new Coordinate();
-            //    }
-            //    else
-            //    {
-            //        var newCoord = new Coordinate();
-            //    }
-
-            //    !_gridService.CheckIfValidLocationForShip(column + i, row)
-            //}
-            
-
-            // put comments to explain
-            if (orientation == 0)
+            for (int i = 0; i < ship.Length; i++)
             {
-                for (var i = 0; i < ship.Length; i++)
+                Coordinate newCoordinates;
+                if ((Orientation)orientation == Orientation.Horizontal)
                 {
-                    if (!_gridService.CheckIfValidLocationForShip(column + i, row))
+                    newCoordinates = new Coordinate
                     {
-                        return false;
-                    }
+                        Column = coordinates.Column + i,
+                        Row = coordinates.Row
+                    };
+                }
+                else
+                {
+                    newCoordinates = new Coordinate
+                    {
+                        Column = coordinates.Column,
+                        Row = coordinates.Row + i
+                    };
+                }
+                
+                if (!_gridService.CheckIfValidLocationForShip(newCoordinates))
+                {
+                    return false;
                 }
             }
-            else
-            {
-                for (var i = 0; i < ship.Length; i++)
-                {
 
-                    if (!_gridService.CheckIfValidLocationForShip(column, row + i))
-                    {
-                        return false;
-                    }
-                }
-            }
             return true;
         }
 
-        private void PlaceShipOnGrid(Ship ship, int column, int row, int orientation)
+        private void PlaceShipOnGrid(Ship ship, Coordinate coordinates, int orientation)
         {
-            if (orientation == 0)
+            for (int i = 0; i < ship.Length; i++)
             {
-                for (var i = 0; i < ship.Length; i++)
+                Coordinate newCoordinates;
+                if ((Orientation)orientation == Orientation.Horizontal)
                 {
-                    _gridService.PlaceShipOnGrid(ship, column + i, row);
+                    newCoordinates = new Coordinate
+                    {
+                        Column = coordinates.Column + i,
+                        Row = coordinates.Row
+                    };
                 }
-            } else
-            {
-                for (var i = 0; i < ship.Length; i++)
+                else
                 {
-                    _gridService.PlaceShipOnGrid(ship, column, row + i);
+                    newCoordinates = new Coordinate
+                    {
+                        Column = coordinates.Column,
+                        Row = coordinates.Row + i
+                    };
                 }
+
+                _gridService.PlaceShipOnGrid(ship, newCoordinates);
             }
-            
         }
+        
 
         public object TakeAShot(Coordinate coordinates)
         {
-            var status = _gridService.CheckCellStatus(coordinates.Column, coordinates.Row);
+            var status = _gridService.CheckCellStatus(coordinates);
 
             switch (status)
             {

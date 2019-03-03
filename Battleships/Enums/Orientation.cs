@@ -2,7 +2,7 @@
 {
     public enum Orientation
     {
-        Horizontal,
-        Vertical
+        Horizontal = 0,
+        Vertical = 1
     }
 }
