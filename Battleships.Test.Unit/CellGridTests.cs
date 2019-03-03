@@ -19,11 +19,15 @@ namespace Battleships.Test.Unit
         [Test]
         public void InitializeGridCreatesCellGrid()
         {
+            //Act
+            _sut.InitializeGrid();
+
             // Assert
-            Assert.AreEqual(_sut.Cells.Count, 100);
-            foreach (var cell in _sut.Cells)
+            Assert.AreEqual(_sut.GetAllCells().Count, 100);
+
+            foreach (var cell in _sut.GetAllCells())
             {
-                Assert.AreEqual(cell.Ship, ShipType.Empty);
+                Assert.AreEqual(cell.Ship.ShipType, ShipType.Empty);
             }
         }
     }

@@ -12,16 +12,16 @@ namespace Battleships.Services
         private const int MAX_COLUMN_NUM = 10;
         private const int MAX_ROW_NUM = 10;
 
-        public List<Cell> Cells { get; private set; }
+        private List<Cell> _cells;
 
         public void InitializeGrid()
         {
-            Cells = new List<Cell>();
+            _cells = new List<Cell>();
             for (var i = 0; i < MAX_COLUMN_NUM; i++)
             {
                 for (var j = 0; j < MAX_ROW_NUM; j++)
                 {
-                    Cells.Add(new Cell
+                    _cells.Add(new Cell
                     {
                         Coordinate = new Coordinate { Column = i, Row = j },
                         Ship = new EmptyShip()
@@ -32,7 +32,7 @@ namespace Battleships.Services
 
         public List<Cell> GetAllCells()
         {
-            return Cells;
+            return _cells;
         }
 
         public bool CheckIfValidLocationForShip(Coordinate coordinates)
@@ -72,7 +72,7 @@ namespace Battleships.Services
 
         private Cell GetCellByCoordinate(Coordinate coordinates)
         {
-            return Cells.Where(x => x.Coordinate.Column == coordinates.Column && x.Coordinate.Row == coordinates.Row).Single();
+            return _cells.Where(x => x.Coordinate.Column == coordinates.Column && x.Coordinate.Row == coordinates.Row).Single();
         }
 
         public void ChangeCellStatus(Coordinate coordinates, CellStatus status)

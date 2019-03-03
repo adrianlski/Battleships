@@ -4,7 +4,6 @@
     {
         Untouched,
         ShotAt,
-        Hit,
-        Sunk
+        Hit
     }
 }
