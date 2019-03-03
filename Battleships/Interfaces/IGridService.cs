@@ -11,6 +11,7 @@ namespace Battleships.Interfaces
         List<Cell> GetAllCells();
         bool CheckIfValidLocationForShip(Coordinate coordinate);
         void PlaceShipOnGrid(Ship ship, Coordinate coordinate);
-        ShipStatus CheckCellStatus(Coordinate coordinate);
+        Cell GetCell(Coordinate coordinate);
+        void ChangeCellStatus(Coordinate coordinates, CellStatus status);
     }
 }

@@ -1,8 +1,9 @@
 ﻿namespace Battleships.Enums
 {
-    public enum ShipStatus
+    public enum CellStatus
     {
-        Empty,
+        Untouched,
+        ShotAt,
         Hit,
         Sunk
     }

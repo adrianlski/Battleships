@@ -8,6 +8,8 @@ namespace Battleships.Ships
         {
             ShipType = ShipType.Destroyer;
             Length = 4;
+            Name = "Destroyer";
+            DisplayName = 'D';
         }
     }
 }

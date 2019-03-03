@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Battleships.Enums;
 using Battleships.Interfaces;
 using Battleships.Models;
@@ -53,6 +54,59 @@ namespace Battleships.Services
             } while (true);
         }
 
+        public string TakeAShot(Coordinate coordinates)
+        {
+            var cell = _gridService.GetCell(coordinates);
+
+            if (cell.Ship.ShipType == ShipType.Empty)
+            {
+                if (cell.CellStatus == CellStatus.Untouched)
+                {
+                    ChangeCellStatus(coordinates, CellStatus.ShotAt);
+                }
+
+                return "You missed!";
+            }
+
+            if (cell.Ship.ShipStatus == CellStatus.ShotAt)
+            {
+                return "You already hit this target";
+            }
+
+            ChangeCellStatus(coordinates, CellStatus.Hit);
+            IncreaseShipShotCounter(cell.Ship);
+
+            if (cell.Ship.IsSunk)
+            {
+                return $"You sunk {cell.Ship.Name}";
+            }
+
+            return $"You hit a {cell.Ship.Name}!";
+            
+            
+
+        }
+
+        private void IncreaseShipShotCounter(Ship ship)
+        {
+            ship.HitCount = ++ship.HitCount;
+        }
+
+        private void ChangeCellStatus(Coordinate coordinates, CellStatus status)
+        {
+            _gridService.ChangeCellStatus(coordinates, status);
+        }
+
+        public bool AllShipsSunk()
+        {
+            return !_ships.Any(x => x.IsSunk == false);
+        }
+
+        public List<Cell> GetBoard()
+        {
+            return _gridService.GetAllCells();
+        }
+
         private bool CanPlaceShipOnGrid(Ship ship, Coordinate coordinates, int orientation)
         {
             for (int i = 0; i < ship.Length; i++)
@@ -74,7 +128,7 @@ namespace Battleships.Services
                         Row = coordinates.Row + i
                     };
                 }
-                
+
                 if (!_gridService.CheckIfValidLocationForShip(newCoordinates))
                 {
                     return false;
@@ -108,36 +162,6 @@ namespace Battleships.Services
 
                 _gridService.PlaceShipOnGrid(ship, newCoordinates);
             }
-        }
-        
-
-        public object TakeAShot(Coordinate coordinates)
-        {
-            var status = _gridService.CheckCellStatus(coordinates);
-
-            switch (status)
-            {
-                case ShipStatus.Empty:
-                    break;
-                case ShipStatus.Hit:
-                    break;
-                case ShipStatus.Sunk:
-                    break;
-                default:
-                    break;
-            }
-
-            return null;
-        }
-
-        public bool AllShipsSunk()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Cell> GetBoard()
-        {
-            return _gridService.GetAllCells();
         }
 
         private List<Ship> GetShips()

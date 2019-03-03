@@ -58,9 +58,9 @@ namespace Battleships.Services
             GetCellByCoordinate(coordinates).Ship = ship;
         }
 
-        public ShipStatus CheckCellStatus(Coordinate coordinates)
+        public Cell GetCell(Coordinate coordinates)
         {
-            return GetCellByCoordinate(coordinates).Ship.ShipStatus;
+            return GetCellByCoordinate(coordinates);
         }
 
         private bool IsOutOfBounds(Coordinate coordinates)
@@ -76,6 +76,9 @@ namespace Battleships.Services
             return Cells.Where(x => x.Coordinate.Column == coordinates.Column && x.Coordinate.Row == coordinates.Row).Single();
         }
 
-        
+        public void ChangeCellStatus(Coordinate coordinates, CellStatus status)
+        {
+            GetCellByCoordinate(coordinates).CellStatus = status;
+        }
     }
 }

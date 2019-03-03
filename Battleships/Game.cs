@@ -32,16 +32,16 @@ namespace Battleships
                 if (GameFinished())
                 {
                     EndGame();
+                    return;
                 }
             }
         }
 
         private Coordinate GetCoordinates()
         {
-            var input = _gameInterface.GetUserInput();
-
             while (true)
             {
+                var input = _gameInterface.GetUserInput();
                 if (_cellValidator.IsInputValid(input))
                 {
                     return _cellValidator.ParseInput(input);
@@ -52,7 +52,7 @@ namespace Battleships
         }
         private void EndGame()
         {
-            _gameInterface.OutputInfo("All ships sunk! Thanks for playing.");
+            _gameInterface.OutputEndGame("All ships sunk! Thanks for playing.");
         }
 
         private bool GameFinished()

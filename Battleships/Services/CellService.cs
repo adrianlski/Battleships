@@ -16,19 +16,19 @@ namespace Battleships
             }
 
             var validColumn = ValidateColumn(input[0]);
-            var validRow = ValidateRow(input[1]);
+            var validRow = ValidateRow(input.Substring(1));
 
             return validColumn && validRow;
         }
 
         private bool ValidateLength(string input)
         {
-            return input.Length == 2;
+            return input.Length >= 1 && input.Length <= 3;
         }
 
-        private bool ValidateRow(char c)
+        private bool ValidateRow(string input)
         {
-            var validNumber = int.TryParse(c.ToString(), out int number);
+            var validNumber = int.TryParse(input, out int number);
             if (!validNumber)
             {
                 return false;
@@ -45,9 +45,9 @@ namespace Battleships
         public Coordinate ParseInput(string input)
         {
             var column = COLUMN_LETTERS.IndexOf(input[0]);
-            var row = input[1] - 1;
+            int.TryParse(input.Substring(1), out int row);
 
-            return new Coordinate{Column = column, Row = row};
+            return new Coordinate{Column = column, Row = row - 1};
         }
     }
 }

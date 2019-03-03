@@ -34,19 +34,26 @@ namespace Battleships.Services
                     var cell = board.Where(x => x.Coordinate.Column == j && x.Coordinate.Row == i - 1).Single();
                     char status;
 
-                    switch (cell.Ship.ShipType)
+                    switch (cell.CellStatus)
                     {
-                        case ShipType.Empty:
-                            status = ' ';
+                        case CellStatus.ShotAt:
+                            status = 'x';
                             break;
-                        case ShipType.Battleship:
-                            status = 'B';
-                            break;
-                        case ShipType.Destroyer:
-                            status = 'D';
+                        case CellStatus.Hit:
+                            status = cell.Ship.DisplayName;
                             break;
                         default:
-                            status = ' ';
+                            if (cell.Ship.ShipType == ShipType.Destroyer)
+                            {
+                                status = '.';
+                            } else if (cell.Ship.ShipType == ShipType.Battleship)
+                            {
+                                status = '.';
+                            } else
+                            {
+                                status = ' ';
+                            }
+                            
                             break;
                     }
 
@@ -77,14 +84,15 @@ namespace Battleships.Services
             Console.WriteLine(message);
         }
 
-        public void OutputInfo(string message)
+        public void OutputEndGame(string message)
         {
             Console.WriteLine(message);
+            Console.ReadLine();
         }
 
-        public void OutputResult(object result)
+        public void OutputResult(string result)
         {
-            throw new NotImplementedException();
+            Console.WriteLine(result);
         }
     }
 }
