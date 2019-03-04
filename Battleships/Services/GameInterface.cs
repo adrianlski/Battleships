@@ -41,17 +41,18 @@ namespace Battleships.Services
                             status = cell.Ship.DisplayName;
                             break;
                         default:
-                            if (cell.Ship.ShipType == ShipType.Destroyer)
-                            {
-                                status = '.';
-                            } else if (cell.Ship.ShipType == ShipType.Battleship)
-                            {
-                                status = '.';
-                            } else
-                            {
-                                status = ' ';
-                            }
-                            
+                            // Cheat mode: uncomment here to see where the ships were placed
+                            //if (cell.Ship.ShipType != ShipType.Empty)
+                            //{
+                            //    status = '.';
+                            //}
+                            //else 
+                            //{
+                            //    status = ' ';
+                            //}
+
+                            status = ' ';
+
                             break;
                     }
 
