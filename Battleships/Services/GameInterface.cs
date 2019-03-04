@@ -29,7 +29,7 @@ namespace Battleships.Services
                 Console.Write(rowNumber);
                 for (int j = 0; j < MAX_COLUMNS; j++)
                 {
-                    var cell = board.Where(x => x.Coordinate.Column == j && x.Coordinate.Row == i - 1).Single();
+                    var cell = board.Single(x => x.Coordinate.Column == j && x.Coordinate.Row == i - 1);
                     char status;
 
                     switch (cell.CellStatus)

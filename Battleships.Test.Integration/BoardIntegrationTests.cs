@@ -37,12 +37,12 @@ namespace Battleships.Test.Integration
             var grid = _gridService.GetAllCells();
 
             // Assert
-            var destroyersOnGridLength = grid.Where(x => x.Ship.ShipType == ShipType.Destroyer).Count();
-            var destroyersInListLength = _ships.Where(x => x.ShipType == ShipType.Destroyer).FirstOrDefault().Length * 2; // two destroyers so need to multiply length by two
+            var destroyersOnGridLength = grid.Count(x => x.Ship.ShipType == ShipType.Destroyer);
+            var destroyersInListLength = _ships.FirstOrDefault(x => x.ShipType == ShipType.Destroyer).Length * 2; // two destroyers so need to multiply length by two
             Assert.AreEqual(destroyersOnGridLength, destroyersInListLength);
 
-            var battleshipsOnGridLength = grid.Where(x => x.Ship.ShipType == ShipType.Battleship).Count();
-            var battleshipsInListLength = _ships.Where(x => x.ShipType == ShipType.Battleship).FirstOrDefault().Length;
+            var battleshipsOnGridLength = grid.Count(x => x.Ship.ShipType == ShipType.Battleship);
+            var battleshipsInListLength = _ships.FirstOrDefault(x => x.ShipType == ShipType.Battleship).Length;
             Assert.AreEqual(battleshipsOnGridLength, battleshipsInListLength);
         }
     }

@@ -10,7 +10,7 @@ namespace Battleships.Services
 {
     public class BoardService : IBoardService
     {
-        private IGridService _gridService;
+        private readonly IGridService _gridService;
         private readonly List<Ship> _ships;
         private readonly Random _random;
 
@@ -99,7 +99,7 @@ namespace Battleships.Services
 
         public bool AllShipsSunk()
         {
-            return !_ships.Any(x => x.IsSunk == false);
+            return _ships.All(x => x.IsSunk);
         }
 
         private bool CanPlaceShipOnGrid(Ship ship, Coordinate coordinates, int orientation)

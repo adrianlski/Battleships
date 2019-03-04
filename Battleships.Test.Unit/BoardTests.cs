@@ -31,7 +31,5 @@ namespace Battleships.Test.Unit
             //Assert
             _cellGridMock.Verify(x => x.InitializeGrid(), Times.Once);
         }
-
-
     }
 }

@@ -44,12 +44,7 @@ namespace Battleships.Services
 
             var potentialCell = GetCellByCoordinate(coordinates);
 
-            if (potentialCell.Ship.ShipType == ShipType.Empty)
-            {
-                return true;
-            }
-
-            return false;
+            return potentialCell.Ship.ShipType == ShipType.Empty;
         }
 
         public void PlaceShipOnGrid(Ship ship, Coordinate coordinates)
@@ -72,7 +67,7 @@ namespace Battleships.Services
 
         private Cell GetCellByCoordinate(Coordinate coordinates)
         {
-            return _cells.Where(x => x.Coordinate.Column == coordinates.Column && x.Coordinate.Row == coordinates.Row).Single();
+            return _cells.Single(x => x.Coordinate.Column == coordinates.Column && x.Coordinate.Row == coordinates.Row);
         }
 
         public void ChangeCellStatus(Coordinate coordinates, CellStatus status)

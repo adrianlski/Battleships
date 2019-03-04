@@ -6,9 +6,9 @@ namespace Battleships
 {
     public class Game : IGame
     {
-        private IBoardService _board;
-        private IGameInterface _gameInterface;
-        private ICoordinateParser _coordinateParser;
+        private readonly IBoardService _board;
+        private readonly IGameInterface _gameInterface;
+        private readonly ICoordinateParser _coordinateParser;
 
         public Game(IBoardService board, IGameInterface gameInterface, ICoordinateParser coordinateParser)
         {
