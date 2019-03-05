@@ -1,13 +1,11 @@
 ﻿using Battleships.Enums;
 using Battleships.Interfaces;
-using Battleships.Services;
 using Battleships.Ships;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using Battleships.Domain;
 using Battleships.Models;
-using NUnit.Framework.Interfaces;
 
 namespace Battleships.Test.Integration
 {
@@ -58,6 +56,7 @@ namespace Battleships.Test.Integration
             // Arrange
             _sut.InitializeBoard();
 
+            // Act
             var grid = _grid.GetAllCells();
 
             // Assert
@@ -67,9 +66,59 @@ namespace Battleships.Test.Integration
         }
 
         [Test]
+        public void TakeAShotChangesEmptyCellStatusToShotAt()
+        {
+            // Arrange
+            _sut.InitializeBoard();
+            var emptyCell = _sut.GetBoard().FirstOrDefault(x => x.Ship == null);
+
+            // Act
+            _sut.TakeAShot(new Coordinate{Column = emptyCell.Coordinate.Column, Row = emptyCell.Coordinate.Row});
+            var cell = _sut.GetBoard().FirstOrDefault(x => x.Coordinate.Column == emptyCell.Coordinate.Column && x.Coordinate.Row == emptyCell.Coordinate.Row);
+
+            // Assert
+            Assert.AreEqual(CellStatus.ShotAt, cell.CellStatus);
+        }
+
+        [Test]
+        public void TakeAShotChangesShipCellStatusToHit()
+        {
+            // Arrange
+            _sut.InitializeBoard();
+            var shipCell = _sut.GetBoard().FirstOrDefault(x => x.Ship != null && x.Ship.ShipType == ShipType.Battleship);
+
+            // Act
+            _sut.TakeAShot(new Coordinate { Column = shipCell.Coordinate.Column, Row = shipCell.Coordinate.Row });
+            var cell = _sut.GetBoard().FirstOrDefault(x => x.Coordinate.Column == shipCell.Coordinate.Column && x.Coordinate.Row == shipCell.Coordinate.Row);
+
+            // Assert
+            Assert.AreEqual(CellStatus.Hit, cell.CellStatus);
+        }
+
+        [Test]
+        public void TakeAShotShootingAllShipCellsDestoryShip()
+        {
+            // Arrange
+            _sut.InitializeBoard();
+            var shipCells = _sut.GetBoard().Where(x => x.Ship != null && x.Ship.ShipType == ShipType.Battleship);
+
+            // Act
+            foreach (var shipCell in shipCells)
+            {
+                _sut.TakeAShot(new Coordinate { Column = shipCell.Coordinate.Column, Row = shipCell.Coordinate.Row });
+            }
+
+            // Assert
+            foreach (var shipCell in shipCells)
+            {
+                Assert.AreEqual(true, shipCell.Ship.IsSunk);
+            }
+            
+        }
+
+        [Test]
         public void AllShipsSunkReturnsTrueWhenAllShipsDestroyed()
         {
-
             // Arrange
             _sut.InitializeBoard();
 
