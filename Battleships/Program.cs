@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Battleships.Domain;
 using Battleships.Services;
 using Battleships.Ships;
 
@@ -15,12 +16,13 @@ namespace Battleships
         private static Game InitializeGame()
         {
             var ships = GetShips();
-            var gridService = new GridService();
+            var grid = new Grid();
             var coordinateParser = new CoordinateParser();
             var gameInterface = new GameInterface();
-            var boardService = new BoardService(gridService, ships);
+            var randomiser = new Randomiser();
+            var board = new Board(grid, randomiser, ships);
 
-            var game = new Game(boardService, gameInterface, coordinateParser);
+            var game = new Game(board, gameInterface, coordinateParser);
             return game;
         }
 

@@ -1,6 +1,5 @@
-﻿using Battleships.Enums;
-using Battleships.Interfaces;
-using Battleships.Services;
+﻿using Battleships.Domain;
+using Battleships.Enums;
 using NUnit.Framework;
 
 namespace Battleships.Test.Unit
@@ -8,12 +7,12 @@ namespace Battleships.Test.Unit
     [TestFixture]
     public class CellGridTests
     {
-        private GridService _sut;
+        private Grid _sut;
 
         [SetUp]
         public void SetUp()
         {
-            _sut = new GridService();
+            _sut = new Grid();
         }
 
         [Test]
@@ -27,7 +26,7 @@ namespace Battleships.Test.Unit
 
             foreach (var cell in _sut.GetAllCells())
             {
-                Assert.AreEqual(cell.Ship.ShipType, ShipType.Empty);
+                Assert.AreEqual(cell.Ship, null);
             }
         }
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Battleships.Interfaces
 {
-    public interface IBoardService
+    public interface IBoard
     {
         void InitializeBoard();
         List<Cell> GetBoard();

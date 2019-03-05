@@ -1,8 +1,8 @@
-﻿using Battleships.Interfaces;
+﻿using System;
+using Battleships.Interfaces;
 using Battleships.Models;
-using System;
 
-namespace Battleships
+namespace Battleships.Domain
 {
     public class CoordinateParser : ICoordinateParser
     {

@@ -5,9 +5,9 @@ using Battleships.Interfaces;
 using Battleships.Models;
 using Battleships.Ships;
 
-namespace Battleships.Services
+namespace Battleships.Domain
 {
-    public class GridService : IGridService
+    public class Grid : IGrid
     {
         private const int MAX_COLUMN_NUM = 10;
         private const int MAX_ROW_NUM = 10;
@@ -24,7 +24,6 @@ namespace Battleships.Services
                     _cells.Add(new Cell
                     {
                         Coordinate = new Coordinate { Column = i, Row = j },
-                        Ship = new EmptyShip()
                     });
                 }
             }
@@ -44,7 +43,7 @@ namespace Battleships.Services
 
             var potentialCell = GetCellByCoordinate(coordinates);
 
-            return potentialCell.Ship.ShipType == ShipType.Empty;
+            return potentialCell.Ship == null;
         }
 
         public void PlaceShipOnGrid(Ship ship, Coordinate coordinates)

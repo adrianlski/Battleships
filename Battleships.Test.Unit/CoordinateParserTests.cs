@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Battleships.Domain;
 
 namespace Battleships.Test.Unit
 {
@@ -16,32 +17,16 @@ namespace Battleships.Test.Unit
             _sut = new CoordinateParser();
         }
 
-        [Test]
-        public void ParsesInput()
+        [TestCase("A1", 0, 0)]
+        [TestCase("j10", 9, 9)]
+        public void ParsesInput(string input, int expectedColumn, int expectedRow)
         {
-            // Arrange
-            var input = "A1";
-
             // Act
             var result = _sut.ParseInput(input);
 
             // Assert
-            Assert.AreEqual(result.Column,0);
-            Assert.AreEqual(result.Row,0);
-        }
-
-        [Test]
-        public void ParsesInputLowerCase()
-        {
-            // Arrange
-            var input = "j10";
-
-            // Act
-            var result = _sut.ParseInput(input);
-
-            // Assert
-            Assert.AreEqual(result.Column, 9);
-            Assert.AreEqual(result.Row, 9);
+            Assert.AreEqual(result.Column, expectedColumn);
+            Assert.AreEqual(result.Row, expectedRow);
         }
 
         [Test]

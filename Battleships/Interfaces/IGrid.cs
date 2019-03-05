@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Battleships.Interfaces
 {
-    public interface IGridService
+    public interface IGrid
     {
         void InitializeGrid();
         List<Cell> GetAllCells();

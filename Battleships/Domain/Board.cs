@@ -6,24 +6,24 @@ using Battleships.Interfaces;
 using Battleships.Models;
 using Battleships.Ships;
 
-namespace Battleships.Services
+namespace Battleships.Domain
 {
-    public class BoardService : IBoardService
+    public class Board : IBoard
     {
-        private readonly IGridService _gridService;
+        private readonly IGrid _grid;
+        private readonly IRandomiser _randomiser;
         private readonly List<Ship> _ships;
-        private readonly Random _random;
 
-        public BoardService(IGridService gridService, List<Ship> ships)
+        public Board(IGrid grid, IRandomiser randomsier, List<Ship> ships)
         {
-            _gridService = gridService;
+            _grid = grid;
             _ships = ships;
-            _random = new Random();
+            _randomiser = randomsier;
         }
 
         public void InitializeBoard()
         {
-            _gridService.InitializeGrid();
+            _grid.InitializeGrid();
 
             foreach (var ship in _ships)
             {
@@ -33,9 +33,9 @@ namespace Battleships.Services
 
         public string TakeAShot(Coordinate coordinates)
         {
-            var cell = _gridService.GetCell(coordinates);
+            var cell = _grid.GetCell(coordinates);
 
-            if (cell.Ship.ShipType == ShipType.Empty)
+            if (cell.Ship == null)
             {
                 if (cell.CellStatus == CellStatus.Untouched)
                 {
@@ -45,7 +45,7 @@ namespace Battleships.Services
                 return "You missed!";
             }
 
-            if (cell.CellStatus == CellStatus.ShotAt)
+            if (cell.CellStatus == CellStatus.ShotAt || cell.CellStatus == CellStatus.Hit)
             {
                 return "You already hit this target";
             }
@@ -63,7 +63,12 @@ namespace Battleships.Services
 
         public List<Cell> GetBoard()
         {
-            return _gridService.GetAllCells();
+            return _grid.GetAllCells();
+        }
+
+        public bool AllShipsSunk()
+        {
+            return _ships.All(x => x.IsSunk);
         }
 
         private void PlaceShip(Ship ship)
@@ -72,11 +77,11 @@ namespace Battleships.Services
             {
                 var coordinates = new Coordinate
                 {
-                    Column = _random.Next(0, 9),
-                    Row = _random.Next(0, 9)
+                    Column = _randomiser.GetRandomValue(0, 9),
+                    Row = _randomiser.GetRandomValue(0, 9)
                 };
                
-                var orientation = _random.Next(0, 2);
+                var orientation = _randomiser.GetRandomValue(0, 2);
 
                 if (CanPlaceShipOnGrid(ship, coordinates, orientation))
                 {
@@ -94,12 +99,7 @@ namespace Battleships.Services
 
         private void ChangeCellStatus(Coordinate coordinates, CellStatus status)
         {
-            _gridService.ChangeCellStatus(coordinates, status);
-        }
-
-        public bool AllShipsSunk()
-        {
-            return _ships.All(x => x.IsSunk);
+            _grid.ChangeCellStatus(coordinates, status);
         }
 
         private bool CanPlaceShipOnGrid(Ship ship, Coordinate coordinates, int orientation)
@@ -124,7 +124,7 @@ namespace Battleships.Services
                     };
                 }
 
-                if (!_gridService.CheckIfValidLocationForShip(newCoordinates))
+                if (!_grid.CheckIfValidLocationForShip(newCoordinates))
                 {
                     return false;
                 }
@@ -155,7 +155,7 @@ namespace Battleships.Services
                     };
                 }
 
-                _gridService.PlaceShipOnGrid(ship, newCoordinates);
+                _grid.PlaceShipOnGrid(ship, newCoordinates);
             }
         }
     }

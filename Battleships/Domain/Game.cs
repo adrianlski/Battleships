@@ -2,15 +2,15 @@
 using Battleships.Models;
 using System;
 
-namespace Battleships
+namespace Battleships.Domain
 {
     public class Game : IGame
     {
-        private readonly IBoardService _board;
+        private readonly IBoard _board;
         private readonly IGameInterface _gameInterface;
         private readonly ICoordinateParser _coordinateParser;
 
-        public Game(IBoardService board, IGameInterface gameInterface, ICoordinateParser coordinateParser)
+        public Game(IBoard board, IGameInterface gameInterface, ICoordinateParser coordinateParser)
         {
             _board = board;        
             _gameInterface = gameInterface;
