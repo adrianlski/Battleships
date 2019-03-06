@@ -35,7 +35,7 @@ namespace Battleships.Domain
         {
             var cell = _grid.GetCell(coordinates);
 
-            if (cell.Ship == null)
+            if (cell.Ship == null && cell.CellStatus != CellStatus.ShotAt)
             {
                 if (cell.CellStatus == CellStatus.Untouched)
                 {
