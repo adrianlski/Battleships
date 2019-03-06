@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Battleships", "Battleships\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Battleships.Test.Unit", "Battleships.Test.Unit\Battleships.Test.Unit.csproj", "{95D36E55-CBC0-4B77-9070-391D4123BF65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Battleships.Test.Integration", "Battleships.Test.Integration\Battleships.Test.Integration.csproj", "{E3A46FA0-19EF-47D7-BD58-82D13D42C145}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Battleships.Test", "Battleships.Test.Integration\Battleships.Test.csproj", "{E3A46FA0-19EF-47D7-BD58-82D13D42C145}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

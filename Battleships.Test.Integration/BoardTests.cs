@@ -10,7 +10,7 @@ using Battleships.Models;
 namespace Battleships.Test.Integration
 {
     [TestFixture]
-    public class BoardIntegrationTests
+    public class BoardTests
     {
         private IGrid _grid;
         private List<Ship> _ships;
